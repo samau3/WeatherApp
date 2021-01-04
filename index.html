@@ -36,23 +36,24 @@
                     <p id="weather">Weather Type</p>
                     <img id='weatherIcon' src="" alt="Weather Icon">
                 </div>
+                <table class="uk-table uk-text-center">
+                    <thead>
+                        <tr>
+                            <th class="uk-text-center">Sunrise</th>
+                            <th class="uk-text-center">Sunset</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id='sunrise'>Time</td>
+                            <td id='sunset'>Time</td>
+                        </tr>
+
+                    </tbody>
+                </table>
                 <div class="uk-overflow-auto">
-                    <table class="uk-table uk-text-center">
-                        <thead>
-                            <tr>
-                                <th class="uk-text-center">Sunrise</th>
-                                <th class="uk-text-center">Sunset</th>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td id='sunrise'>Time</td>
-                                <td id='sunset'>Time</td>
-                            </tr>
-
-                        </tbody>
-                    </table>
                     <table class="uk-table uk-text-center">
                         <thead>
                             <tr>
@@ -92,9 +93,6 @@
 
         </div>
     </main>
-
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/luxon@1.25.0/build/global/luxon.min.js"></script>
     <script src="app.js"></script>
