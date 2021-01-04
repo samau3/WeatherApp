@@ -30,7 +30,6 @@ const weatherInfo = async (query) => {
         let lon = cityForOneAPI.data.coord.lon
         cityName.textContent = `${cityForOneAPI.data.name}, ${cityForOneAPI.data.sys.country}`
         let city = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${degUnit}&appid=${apiId}`)
-        console.log(city.data)
         timeConversion(city.data)
         temperature.textContent = unitConvert(city.data.current.temp)
         weather.textContent = city.data.current.weather[0].description.toUpperCase()
@@ -39,7 +38,7 @@ const weatherInfo = async (query) => {
         tableInfo(city.data.hourly[1], nextHour)
         tableInfo(city.data.daily[0], today)
     } catch (err) {
-        console.log(err)
+        UIkit.notification('Please enter a valid city name', { status: 'danger' });
     }
 }
 
