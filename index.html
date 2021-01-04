@@ -8,20 +8,21 @@
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.6.5/dist/css/uikit.min.css" />
-
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
 </head>
 
 <body>
     <nav class="uk-navbar">
         <div class="uk-navbar-center uk-logo uk-text-bolder uk-text-center">
-            Weather
+            Weather <span> <i class="fas fa-cloud"></i> </span> App
         </div>
     </nav>
-
-    <main class="uk-container">
+    <main
+        class="uk-card uk-card-body uk-card-default uk-margin-small uk-margin-small-left uk-margin-small-right uk-padding-remove-top">
         <div>
-            <form class="uk-search uk-search-default uk-align-center" id="searchForm">
+            <form class="uk-search uk-search-default uk-search-navbar uk-align-center" id="searchForm">
                 <span uk-search-icon></span>
                 <input class="uk-search-input uk-align-center" type="text" placeholder="City Name" name="query">
         </div>
@@ -29,7 +30,7 @@
             <div class="uk-container uk-align-center">
                 <h1 id='cityName' class="uk-text-center">City Name</h1>
                 <h4 id='time' class="uk-text-center uk-margin-remove-top">Time</h4>
-                <h6 id='localTime' class="uk-text-center uk-margin-remove-top">Local Time</h6>
+                <h6 id='localTime' class="uk-text-center uk-margin-remove-top">City's Local Time</h6>
                 <div class="uk-text-center">
                     <h2 id='temperature'>Degree</h2>
                     <p id="weather">Weather Type</p>
@@ -55,6 +56,7 @@
                     <table class="uk-table uk-text-center">
                         <thead>
                             <tr>
+                                <th class="uk-text-center"></th>
                                 <th class="uk-text-center">Rain%</th>
                                 <th class="uk-text-center">Humidty</th>
                                 <th class="uk-text-center">Wind Speed</th>
@@ -62,11 +64,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Table Data</td>
-                                <td>Table Data</td>
-                                <td>Table Data</td>
-                                <td>Table Data</td>
+                            <tr id="thisHour">
+                                <td class="uk-text-bold">For This Hour</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr id="nextHour">
+                                <td class="uk-text-bold">Next Hour</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr id="today">
+                                <td class="uk-text-bold">For Today</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>

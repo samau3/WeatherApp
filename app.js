@@ -7,6 +7,9 @@ const weather = document.querySelector('#weather')
 const sunrise = document.querySelector('#sunrise')
 const sunset = document.querySelector('#sunset')
 const weatherIcon = document.querySelector('#weatherIcon')
+const thisHour = document.querySelector('#thisHour')
+const nextHour = document.querySelector('#nextHour')
+const today = document.querySelector('#today')
 
 const apiId = 'f77910a5f7e2b10ec9cebe2b18c8390b'
 let degUnit = 'imperial'
@@ -35,8 +38,11 @@ const weatherInfo = async (query) => {
         temperature.textContent = unitConvert(city.data.current.temp)
         weather.textContent = city.data.current.weather[0].description.toUpperCase()
         weatherIcon.src = `http://openweathermap.org/img/wn/${city.data.current.weather[0].icon}@2x.png`
+        tableInfo(city.data.hourly[0], thisHour)
+        tableInfo(city.data.hourly[1], nextHour)
+        tableInfo(city.data.daily[0], today)
     } catch (err) {
-        alert('Please make sure a valid city name is entered')
+        console.log(err)
     }
 
 }
@@ -53,7 +59,24 @@ const timeConversion = (unixTime) => {
     time.textContent = DateTime.fromMillis(unixTime.current.dt * 1000).toLocaleString(DateTime.DATETIME_FULL)
     //need to multiply by 1000 as API info gives a unix timestamp that is milliseconds since epoch; product gives seconds
     localTime.textContent = DateTime.fromISO(DateTime.fromMillis(unixTime.current.dt * 1000), { zone: unixTime.timezone }).toLocaleString(DateTime.DATETIME_HUGE)
-
     sunrise.textContent = DateTime.fromMillis(unixTime.current.sunrise * 1000).toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET)
     sunset.textContent = DateTime.fromMillis(unixTime.current.sunset * 1000).toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET)
+}
+
+const tableInfo = (hourInfo, tableRow) => {
+    let hourlyInfo = [`${hourInfo.pop}%`, `${hourInfo.humidity}%`, `${hourInfo.wind_speed} MPH`, hourInfo.uvi]
+
+    for (let i = 1; i <= thisHour.children.length - 1; i++) {
+        tableRow.children[i].innerText = '' //to clear out any previous cities' info
+        tableRow.children[i].append(hourlyInfo[i - 1])
+    }
+    let ultraV = tableRow.lastElementChild
+    ultraV.className = ''
+    if (parseInt(ultraV.innerText) < 3) {
+        ultraV.classList.add('uk-text-success', 'uk-text-bold')
+    } else if (parseInt(ultraV.innerText) >= 3 && parseInt(ultraV.innerText) < 8) {
+        ultraV.classList.add('uk-text-warning', 'uk-text-bold')
+    } else {
+        ultraV.classList.add('uk-text-danger', 'uk-text-bold')
+    }
 }
