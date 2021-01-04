@@ -13,7 +13,6 @@ const today = document.querySelector('#today')
 
 const apiId = 'f77910a5f7e2b10ec9cebe2b18c8390b'
 let degUnit = 'imperial'
-
 const DateTime = luxon.DateTime;
 
 searchForm.addEventListener('submit', async function (e) {
@@ -23,8 +22,6 @@ searchForm.addEventListener('submit', async function (e) {
     weatherInfo(searchTerm)
     searchForm.elements.query.value = ''
 })
-
-// a function that calls the API and extracts all the information needed; will need to add it to the eventlistener
 
 const weatherInfo = async (query) => {
     try {
@@ -44,15 +41,12 @@ const weatherInfo = async (query) => {
     } catch (err) {
         console.log(err)
     }
-
 }
 
 const unitConvert = (locationDeg) => {
     if (degUnit === 'imperial') {
         return Math.round(locationDeg) + '°F'
     }
-    // let degF = Math.floor(((locationDeg - 273.15) * 1.8) + 32)
-    // return `${degF}°F`
 }
 
 const timeConversion = (unixTime) => {
@@ -71,7 +65,7 @@ const tableInfo = (hourInfo, tableRow) => {
         tableRow.children[i].append(hourlyInfo[i - 1])
     }
     let ultraV = tableRow.lastElementChild
-    ultraV.className = ''
+    ultraV.className = '' //to clear out previous cities' UV info
     if (parseInt(ultraV.innerText) < 3) {
         ultraV.classList.add('uk-text-success', 'uk-text-bold')
     } else if (parseInt(ultraV.innerText) >= 3 && parseInt(ultraV.innerText) < 8) {
