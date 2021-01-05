@@ -94,7 +94,7 @@ const airQuality = (airInfo) => {
     } else if (airQnum === 3) {
         airQual.classList.add('uk-text-warning')
     } else {
-        airQual.classList.add('uk-text-warning')
+        airQual.classList.add('uk-text-danger', 'uk-text-bold')
     }
 }
 
