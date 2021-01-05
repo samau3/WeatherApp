@@ -36,7 +36,7 @@ const weatherInfo = async (query) => {
         let lon = cityForOneAPI.data.coord.lon
         cityName.textContent = `${cityForOneAPI.data.name}, ${cityForOneAPI.data.sys.country}`
         let city = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${degUnit}&appid=${apiId}`)
-        let airQ = await axios.get(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiId}`)
+        let airQ = await axios.get(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiId}`)
         timeConversion(city.data)
         temperature.textContent = unitConvert(city.data.current.temp)
         weather.textContent = city.data.current.weather[0].description.toUpperCase()
