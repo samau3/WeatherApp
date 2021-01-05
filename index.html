@@ -24,17 +24,21 @@
         <div>
             <form class="uk-search uk-search-default uk-search-navbar uk-align-center" id="searchForm">
                 <span uk-search-icon></span>
-                <input class="uk-search-input uk-align-center" type="text" placeholder="City Name" name="query">
+                <input class="uk-search-input uk-align-center" type="text" placeholder="Enter A City Name" name="query">
+            </form>
         </div>
-        <div class="uk-grid uk-align-center">
+        <section id='weatherDisplay' class="uk-grid uk-align-center uk-animation-fade">
             <div class="uk-container uk-align-center">
                 <h1 id='cityName' class="uk-text-center">City Name</h1>
                 <h4 id='time' class="uk-text-center uk-margin-remove-top">Time</h4>
                 <h6 id='localTime' class="uk-text-center uk-margin-remove-top">City's Local Time</h6>
-                <div class="uk-text-center">
+                <section class="uk-text-center">
                     <h2 id='temperature'>Degree</h2>
                     <p id="weather">Weather Type</p>
                     <img id='weatherIcon' src="" alt="Weather Icon">
+                </section>
+                <div>
+                    <p class="uk-text-center">AQI: <span id="airQual"></span></p>
                 </div>
                 <table class="uk-table uk-text-center">
                     <thead>
@@ -49,11 +53,9 @@
                             <td id='sunrise'>Time</td>
                             <td id='sunset'>Time</td>
                         </tr>
-
                     </tbody>
                 </table>
                 <div class="uk-overflow-auto">
-
                     <table class="uk-table uk-text-center">
                         <thead>
                             <tr>
@@ -91,7 +93,7 @@
                 </div>
             </div>
 
-        </div>
+        </section>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/luxon@1.25.0/build/global/luxon.min.js"></script>

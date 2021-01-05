@@ -10,17 +10,25 @@ const weatherIcon = document.querySelector('#weatherIcon')
 const thisHour = document.querySelector('#thisHour')
 const nextHour = document.querySelector('#nextHour')
 const today = document.querySelector('#today')
+const airQual = document.querySelector('#airQual')
+const weatherDisplay = document.querySelector('#weatherDisplay')
+
 
 const apiId = 'f77910a5f7e2b10ec9cebe2b18c8390b'
 let degUnit = 'imperial'
 const DateTime = luxon.DateTime;
 
+window.onload = function () { // to hide blank weather display info
+    weatherDisplay.style.display = 'none'
+}
+
 searchForm.addEventListener('submit', async function (e) {
     e.preventDefault();
     let searchTerm = searchForm.elements.query.value;
     searchTerm = searchTerm.replaceAll(' ', '+')
-    weatherInfo(searchTerm)
     searchForm.elements.query.value = ''
+    await weatherInfo(searchTerm) // by adding await, allows for all the information to populate before unhiding the weather information
+    weatherDisplay.style.display = '' //unhides the info
 })
 
 const weatherInfo = async (query) => {
@@ -30,10 +38,12 @@ const weatherInfo = async (query) => {
         let lon = cityForOneAPI.data.coord.lon
         cityName.textContent = `${cityForOneAPI.data.name}, ${cityForOneAPI.data.sys.country}`
         let city = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${degUnit}&appid=${apiId}`)
+        let airQ = await axios.get(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiId}`)
         timeConversion(city.data)
         temperature.textContent = unitConvert(city.data.current.temp)
         weather.textContent = city.data.current.weather[0].description.toUpperCase()
         weatherIcon.src = `http://openweathermap.org/img/wn/${city.data.current.weather[0].icon}@2x.png`
+        airQuality(airQ.data.list[0].main.aqi)
         tableInfo(city.data.hourly[0], thisHour)
         tableInfo(city.data.hourly[1], nextHour)
         tableInfo(city.data.daily[0], today)
@@ -73,3 +83,19 @@ const tableInfo = (hourInfo, tableRow) => {
         ultraV.classList.add('uk-text-danger', 'uk-text-bold')
     }
 }
+
+const airQuality = (airInfo) => {
+    let desc = ['Good', 'Fair', 'Moderate', 'Bad', 'Very Poor']
+    let airQnum = parseInt(airInfo)
+    airQual.innerText = `${airInfo} - ${desc[airQnum - 1]}`
+    airQual.className = ''
+    if (airQnum < 3) {
+        airQual.classList.add('uk-text-success')
+    } else if (airQnum === 3) {
+        airQual.classList.add('uk-text-warning')
+    } else {
+        airQual.classList.add('uk-text-warning')
+    }
+}
+
+
