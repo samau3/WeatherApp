@@ -26,9 +26,7 @@ searchForm.addEventListener('submit', async function (e) {
     e.preventDefault();
     let searchTerm = searchForm.elements.query.value;
     searchTerm = searchTerm.replaceAll(' ', '+')
-    searchForm.elements.query.value = ''
     await weatherInfo(searchTerm) // by adding await, allows for all the information to populate before unhiding the weather information
-    weatherDisplay.style.display = '' //unhides the info
 })
 
 const weatherInfo = async (query) => {
@@ -42,11 +40,13 @@ const weatherInfo = async (query) => {
         timeConversion(city.data)
         temperature.textContent = unitConvert(city.data.current.temp)
         weather.textContent = city.data.current.weather[0].description.toUpperCase()
-        weatherIcon.src = `http://openweathermap.org/img/wn/${city.data.current.weather[0].icon}@2x.png`
+        weatherIcon.src = `https://openweathermap.org/img/wn/${city.data.current.weather[0].icon}@2x.png`
         airQuality(airQ.data.list[0].main.aqi)
         tableInfo(city.data.hourly[0], thisHour)
         tableInfo(city.data.hourly[1], nextHour)
         tableInfo(city.data.daily[0], today)
+        searchForm.elements.query.value = ''
+        weatherDisplay.style.display = '' //unhides the info
     } catch (err) {
         UIkit.notification('Please enter a valid city name', { status: 'danger' });
     }
